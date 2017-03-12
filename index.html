@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Trivia Game</title>
+	<meta charset="utf-8">
+</head>
+
+<body id="background">
+	<div id="encompass">
+		<h1 id="gameName">Trivial Trivia</h1>
+		<button id="beginGameButton">Start</button>
+	</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+
+<script>
+
+var blank = 0;
+var timeReencompassing = 60;
+var correct = 0;
+var incorrect = 0;
+var QnA = [
+{question:"38 x 64 = ?", optionOne:"3,280", optionTwo:"2,262", rightOption:"2,432", optionThree:"2,964"},
+{question:"(12+8)/(2*5) = ?", optionOne:"3", optionTwo:"1.5", optionThree:"2.5", rightOption:"2"},
+{question:"Probability of flipping 3 heads in a row?", rightOption:"1/8", optionOne:"1/4", optionTwo:"1/12", optionThree:"1/16"},
+{question:"Which has no remainder?", optionOne:"131/9", rightOption:"121/11", optionTwo:"131/7", optionThree:"121/9"},
+{question:"What is the square root of 1,296?", optionOne:"38", optionTwo:"32", optionThree:"34", rightOption:"36"}
+];
+
+function increment() {
+	timeReencompassing--;
+	$('#tickTock').html('<p>Time Left: ' + timeReencompassing + '</p>');
+	if (timeReencompassing==0) {
+            $('#finishButton').click();
+        };
+};
+
+$(document).ready(function() {
+
+
+	$("#beginGameButton").click(function(){
+    	$("#beginGameButton").fadeOut(2000);
+    	$("#encompass").append('<p id=tickTock>Time Left:' + timeReencompassing + '</p>');
+    	for (var i = 0; i < QnA.length; i++) {
+    		$('#encompass').append('<p>' + QnA[i].question +'</p>');
+    		$('#encompass').append('<form id="quiz' + i + '"</form>');
+    		$('#quiz'+i+'').append('<input type="radio" name="answer">' + QnA[i].optionOne + '</input><br><input type="radio" name= "answer" value= ' + i +' >' + QnA[i].optionTwo + '</input><br><input type="radio" name="answer">' + QnA[i].optionThree + '</input><br><input type="radio" name="answer">' + QnA[i].rightOption + '</input>');
+    	};
+
+    	$("#encompass").append('<input id="finishButton" type="submit" value="Submit">');
+    	$('#finishButton').click(function() {
+    		$('#finishButton').fadeOut(500);
+    		$("#tickTock").fadeOut(500);
+            console.log($("input:radio:checked")[0]);
+    		for (var i = 0; i < QnA.length; i++) {
+    			$('#quiz' + i).fadeOut(500);
+
+                
+                // for (var i = 0; i < QnA.length; i++) {
+                //     if ($('#quiz'+i+'.'.ischecked==true) {
+                //     rightOption++;
+                // }
+                
+                
+    			// var x = document.quizs["quiz"+i+""]["answer"].value;
+    			// if (x==QnA[i].rightOption) {
+    			// correct++;
+    			// } else if (x==""){
+    			// 	blank++;
+    			// } else {
+    			// 	incorrect++;	
+    			// };
+    		};
+
+    		$("#encompass").append('<h1>All Done!</h1><br>');
+    		$("#encompass").append('<p>Correct Answers: ' + correct + '</p>');
+    		$("#encompass").append('<p>Incorrect Answers: ' + incorrect + '</p>');
+    		$('#encompass').append('<p>Unanswered: ' + blank + '</p>');
+
+    	});
+
+    	counter = setInterval(increment, 2000);
+    	
+	});
+});
+
+</script>
+
+
+
+<style>
+
+body {
+	background-size: cover;
+}
+
+#background {
+	background-image: url("https://wallpaperbrowse.com/media/images/Background-4.jpg");
+	background-repeat: no-repeat;
+}
+
+button {
+	margin: auto;
+	display: block;
+	font-size: 30px;
+}
+
+p {
+	display: block;
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+input.radio {
+	display: inline;
+}
+
+#tickTock {
+	margin: auto;
+	display: block;
+	text-align: center;
+}
+
+#gameName{
+	display: block;
+	color: black;
+	font-size: 50px;
+	text-align: center;
+	padding: 25px;
+	margin: auto;
+}
+
+#encompass {
+	width: 80%;
+	height: 1000px;
+	background-color: white;
+	margin: auto;
+}
+
+</style>
+
+
+</body>
+</html>
